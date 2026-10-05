@@ -1,5 +1,5 @@
-import { defaultConfig } from '@tamagui/config/v5-subtle';
-import { animations } from '@tamagui/config/v5-reanimated';
+import { defaultConfig } from '@tamagui/config/v5';
+import { animations } from '@tamagui/config/v5-rn';
 import { createTamagui, createFont, isWeb, type GenericFont } from 'tamagui';
 import { createThemes } from '@tamagui/theme-builder';
 import {
@@ -10,11 +10,6 @@ import {
 
 import { templates } from './tamagui.config.ts.d/templates';
 
-const fonts: {
-	heading: GenericFont | null;
-	body: GenericFont | null;
-} = { heading: null, body: null };
-
 function getThemePalette(themeName: keyof typeof defaultChildrenThemes) {
 	return {
 		palette: {
@@ -23,92 +18,93 @@ function getThemePalette(themeName: keyof typeof defaultChildrenThemes) {
 		},
 	};
 }
+const fonts = {
+	heading: createFont({
+		family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
+		size: defaultConfig.fonts.heading.size,
+		lineHeight: defaultConfig.fonts.heading.lineHeight,
+		weight: {
+			1: '100',
+			2: '200',
+			3: '300',
+			4: '400',
+			5: '500',
+			6: '600',
+			7: '700',
+			8: '800',
+			true: '800',
+		},
+		letterSpacing: {
+			1: 2,
+			2: 1.5,
+			3: 1,
+			4: 0.5,
+			5: 0,
+			6: -0.5,
+			7: -1,
+			8: -1.5,
+			9: -2,
+			true: 0,
+		},
+		// (native only) swaps out fonts by face/style
+		face: {
+			100: { normal: 'Inter Thin', italic: 'Inter Thin' },
+			200: { normal: 'Inter Extra Light', italic: 'Inter Extra Light' },
+			300: { normal: 'Inter Light', italic: 'Inter Light' },
+			400: { normal: 'Inter', italic: 'Inter' },
+			500: { normal: 'Inter Medium', italic: 'Inter Medium' },
+			600: { normal: 'Inter Semi Bold', italic: 'Inter Semi Bold' },
+			700: { normal: 'Inter', italic: 'Inter' },
+			800: { normal: 'Inter Extra Bold', italic: 'Inter Extra Bold' },
+			900: { normal: 'Inter Black', italic: 'Inter Black' },
+			1000: { normal: 'Inter Black', italic: 'Inter Black' },
+			true: { normal: 'Inter', italic: 'Inter' },
+		},
+	}),
 
-fonts.heading = createFont({
-	family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
-	size: defaultConfig.fonts.heading.size,
-	lineHeight: defaultConfig.fonts.heading.lineHeight,
-	weight: {
-		1: 100,
-		2: 200,
-		3: 300,
-		4: 400,
-		5: 500,
-		6: 600,
-		7: 700,
-		8: 800,
-		true: 800,
-	},
-	letterSpacing: {
-		1: 2,
-		2: 1.5,
-		3: 1,
-		4: 0.5,
-		5: 0,
-		6: -0.5,
-		7: -1,
-		8: -1.5,
-		9: -2,
-		true: 0,
-	},
-	// (native only) swaps out fonts by face/style
-	face: {
-		100: { normal: 'Inter Thin', italic: 'Inter Thin' },
-		200: { normal: 'Inter Extra Light', italic: 'Inter Extra Light' },
-		300: { normal: 'Inter Light', italic: 'Inter Light' },
-		400: { normal: 'Inter', italic: 'Inter' },
-		500: { normal: 'Inter Medium', italic: 'Inter Medium' },
-		600: { normal: 'Inter Semi Bold', italic: 'Inter Semi Bold' },
-		700: { normal: 'Inter', italic: 'Inter' },
-		800: { normal: 'Inter Extra Bold', italic: 'Inter Extra Bold' },
-		900: { normal: 'Inter Black', italic: 'Inter Black' },
-		1000: { normal: 'Inter Black', italic: 'Inter Black' },
-		true: { normal: 'Inter', italic: 'Inter' },
-	},
-});
-
-fonts.body = createFont({
-	family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
-	size: defaultConfig.fonts.body.size,
-	lineHeight: defaultConfig.fonts.body.lineHeight,
-	weight: {
-		1: 100,
-		2: 200,
-		3: 300,
-		4: 400,
-		5: 500,
-		6: 600,
-		7: 700,
-		8: 800,
-		true: 800,
-	},
-	letterSpacing: {
-		1: 2,
-		2: 1.5,
-		3: 1,
-		4: 0.5,
-		5: 0,
-		6: -0.5,
-		7: -1,
-		8: -1.5,
-		9: -2,
-		true: 0,
-	},
-	// (native only) swaps out fonts by face/style
-	face: {
-		100: { normal: 'Inter Thin', italic: 'Inter Thin' },
-		200: { normal: 'Inter Extra Light', italic: 'Inter Extra Light' },
-		300: { normal: 'Inter Light', italic: 'Inter Light' },
-		400: { normal: 'Inter', italic: 'Inter' },
-		500: { normal: 'Inter Medium', italic: 'Inter Medium' },
-		600: { normal: 'Inter Semi Bold', italic: 'Inter Semi Bold' },
-		700: { normal: 'Inter', italic: 'Inter' },
-		800: { normal: 'Inter Extra Bold', italic: 'Inter Extra Bold' },
-		900: { normal: 'Inter Black', italic: 'Inter Black' },
-		1000: { normal: 'Inter Black', italic: 'Inter Black' },
-		true: { normal: 'Inter', italic: 'Inter' },
-	},
-});
+	body: createFont({
+		family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
+		size: defaultConfig.fonts.body.size,
+		lineHeight: defaultConfig.fonts.body.lineHeight,
+		weight: {
+			1: '100',
+			2: '200',
+			3: '300',
+			4: '400',
+			5: '500',
+			6: '600',
+			7: '700',
+			8: '800',
+			true: '800',
+		},
+		letterSpacing: {
+			1: 2,
+			2: 1.5,
+			3: 1,
+			4: 0.5,
+			5: 0,
+			6: -0.5,
+			7: -1,
+			8: -1.5,
+			9: -2,
+			true: 0,
+		},
+		// (native only) swaps out fonts by face/style
+		face: {
+			100: { normal: 'Inter Thin', italic: 'Inter Thin' },
+			200: { normal: 'Inter Extra Light', italic: 'Inter Extra Light' },
+			300: { normal: 'Inter Light', italic: 'Inter Light' },
+			400: { normal: 'Inter', italic: 'Inter' },
+			500: { normal: 'Inter Medium', italic: 'Inter Medium' },
+			600: { normal: 'Inter Semi Bold', italic: 'Inter Semi Bold' },
+			700: { normal: 'Inter', italic: 'Inter' },
+			800: { normal: 'Inter Extra Bold', italic: 'Inter Extra Bold' },
+			900: { normal: 'Inter Black', italic: 'Inter Black' },
+			1000: { normal: 'Inter Black', italic: 'Inter Black' },
+			true: { normal: 'Inter', italic: 'Inter' },
+		},
+	}),
+};
 
 const gdThemes = {
 	...v5GrandchildrenThemes,
@@ -217,10 +213,7 @@ const themes = createThemes({
 export const config = createTamagui({
 	...defaultConfig,
 	animations,
-	fonts: {
-		heading: fonts.heading,
-		body: fonts.body,
-	},
+	fonts,
 	themes,
 	media: {
 		...defaultConfig.media,
