@@ -1,5 +1,5 @@
 import { defaultConfig } from '@tamagui/config/v5-subtle';
-import { animations } from '@tamagui/config/v5-reanimated';
+import { animations } from '@tamagui/config/v5-rn';
 import { createTamagui, createFont, isWeb, type GenericFont } from 'tamagui';
 import { createThemes } from '@tamagui/theme-builder';
 import {
